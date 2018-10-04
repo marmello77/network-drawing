@@ -7,7 +7,7 @@ Author: Marco Mello
 
 E-mail: marmello@gmail.com 
 
-How to cite: Mello MAR. 2017. Script for drawing networks in R.
+How to cite: Mello MAR. 2017. Script for drawing networks in R. Ecological Synthesis Lab at the University of São Paulo, Brazil.
 
 Published on April 25th, 2017 (English version).
 
