@@ -1,5 +1,5 @@
 # network-drawing
-R script for network drawing
+R script for drawing networks
 
 Ecological Synthesis Lab (SintECO): https://marcomellolab.wordpress.com
 
