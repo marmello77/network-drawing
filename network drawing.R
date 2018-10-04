@@ -5,12 +5,12 @@
 ############################################################################
 
 ##### Ecological Synthesis Lab (SintECO)
-##### www.marcomello.org
+##### https://marcomellolab.wordpress.com
 ##### Author: Marco Mello
 ##### E-mail: marmello@gmail.com 
 ##### Script: Script for drawing networks in R
 ##### How to cite: Mello MAR. 2017. Script for drawing networks in R. Available
-##### at www.marcomello.org.
+##### at https://marcomellolab.wordpress.com.
 ##### Published on April 25th, 2017 (English version).
 ##### Updated on November 22nd, 2017 (English version).
 ##### Run in R 3.3.3 (2017-03-06) -- "Another Canoe"
