@@ -7,8 +7,6 @@ Author: Marco Mello
 
 E-mail: marmello@gmail.com 
 
-Script: Script for drawing networks in R.
-
 How to cite: Mello MAR. 2017. Script for drawing networks in R. Available at https://marcomellolab.wordpress.com.
 
 Published on April 25th, 2017 (English version).
