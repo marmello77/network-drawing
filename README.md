@@ -1,14 +1,14 @@
 # network-drawing
 
-Script for drawing networks in R
+Drawing networks in R.
 
-Ecological Synthesis Lab (SintECO): https://marcomellolab.wordpress.com
+Ecological Synthesis Lab (SintECO): https://marcomellolab.wordpress.com.
 
-Author: Marco Mello
+Author: Marco Mello.
 
-E-mail: marmello@gmail.com 
+E-mail: marmello@gmail.com .
 
-How to cite: Mello MAR. 2017. Script for drawing networks in R. Ecological Synthesis Lab at the University of São Paulo, Brazil.
+How to cite: Mello MAR. 2017. Drawing networks in R. Ecological Synthesis Lab at the University of São Paulo, Brazil.
 
 Published on April 25th, 2017 (English version).
 
