@@ -6,7 +6,7 @@ Author: Marco Mello.
 
 E-mail: marmello@gmail.com .
 
-How to cite: Mello MAR. 2017. Drawing networks in R. Ecological Synthesis Lab at the University of São Paulo, Brazil.
+How to cite: Mello MAR. 2017. Drawing networks in R. Ecological Synthesis Lab of the University of São Paulo, Brazil.
 
 Published on April 25th, 2017 (English version).
 
