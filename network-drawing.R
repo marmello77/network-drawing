@@ -50,10 +50,14 @@ library(bipartite)
 library(igraph)
 library(reshape2)
 library(ggplot2)
+library(rstudioapi)
 
-# Set the working directory
 
-setwd("paste your working directory path here")
+# Set the working directory automatically to the source file location 
+
+current_path <- getActiveDocumentContext()$path 
+setwd(dirname(current_path ))
+print( getwd() )
 
 
 # Warning 1: this script works both with binary and weighted networks.
