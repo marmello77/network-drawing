@@ -4,7 +4,7 @@ Ecological Synthesis Lab (SintECO): https://marcomellolab.wordpress.com.
 
 Author: Marco Mello.
 
-E-mail: marmello@gmail.com .
+E-mail: marmello@gmail.com.
 
 How to cite: Mello MAR. 2017. Drawing networks in R. Ecological Synthesis Lab of the University of São Paulo, Brazil.
 
