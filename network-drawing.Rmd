@@ -1,6 +1,6 @@
 ---
 title: "Network drawing"
-author: "Marco Mello"
+authors: "Marco Mello" & "Renata Muylaert"
 date: "18/09/2020"
 output: pdf_document
 ---
@@ -14,9 +14,9 @@ knitr::opts_chunk$set(echo = TRUE, fig.width=12, fig.height=8)
 
 [Ecological Synthesis Lab](https://marcomellolab.wordpress.com) (SintECO).
 
-Author: Marco Mello.
+Authors: Marco Mello & Renata Muylaert.
 
-E-mail: marmello@gmail.com. 
+E-mail: marmello@usp.br. 
 
 See further info in the README file.
 

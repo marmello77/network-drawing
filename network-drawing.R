@@ -3,8 +3,8 @@
 
 ##### Ecological Synthesis Lab (SintECO).
 ##### https://marcomellolab.wordpress.com.
-##### Author: Marco Mello.
-##### E-mail: marmello@gmail.com. 
+##### Authors: Marco Mello & Renata Muylaert.
+##### E-mail: marmello@usp.br. 
 ##### See further info in the README file.
 
 

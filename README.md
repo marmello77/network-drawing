@@ -2,7 +2,7 @@
 
 [Ecological Synthesis Lab](https://marcomellolab.wordpress.com) (SintECO).
 
-Author: Marco Mello.
+Author: Marco Mello & Renata Muylaert.
 
 E-mail: marmello@usp.br.
 
@@ -10,10 +10,9 @@ How to cite: Mello MAR. 2017. How to draw networks in R. Ecological Synthesis La
 
 Published first on April 25th, 2017 (English version).
 
-Updated on November 22nd, 2017 (English version).
+Updated on September 18th, 2020 (English version).
 
-<a href="https://doi.org/10.5281/zenodo.1487603"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1487603.svg" alt="DOI"></a>
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4036687.svg)](https://doi.org/10.5281/zenodo.4036687)
 
 Run in R version 4.0.2 (2020-06-22) -- "Taking Off Again".
 
