@@ -1,20 +1,11 @@
-############################################################################
-#                                                                          # 
-#                SCRIPT FOR DRAWING NETWORKS IN R                          #
-#                                                                          # 
-############################################################################
 
-##### Ecological Synthesis Lab (SintECO)
-##### https://marcomellolab.wordpress.com
-##### Author: Marco Mello
-##### E-mail: marmello@gmail.com 
-##### Script: Script for drawing networks in R
-##### How to cite: Mello MAR. 2017. Script for drawing networks in R. Available at https://marcomellolab.wordpress.com.
-##### Published on April 25th, 2017 (English version).
-##### Updated on November 22nd, 2017 (English version).
-##### Run in R 3.3.3 (2017-03-06) -- "Another Canoe"
+##### How to draw networks in R
 
-##### Disclaimer: You may use this script freely for non-comercial purposes at your own risk. We assume no responsibility or liability for the use of this software, convey no license or title under any patent, copyright, or mask work right to the product. We reserve the right to make changes in the software without notification. We also make no representation or warranty that such application will be suitable for the specified use without further testing or modification. If this script helps you produce any academic work (paper, book, chapter, dissertation etc.), please acknowledge the authors and cite the source.
+##### Ecological Synthesis Lab (SintECO).
+##### https://marcomellolab.wordpress.com.
+##### Author: Marco Mello.
+##### E-mail: marmello@gmail.com. 
+##### See further info in the README file.
 
 
 #############################################################
@@ -32,7 +23,7 @@
 
 # PREPARATION
 
-# Load the packages
+# Load the required packages
 
 library(bipartite)
 library(igraph)
@@ -48,16 +39,11 @@ setwd(dirname(current_path ))
 print( getwd() )
 
 
-# Warning 1: this script works both with binary and weighted networks.
+# Warning 1: This script works both with binary and weighted networks.
 
-# Warning 2: this script was designed for two-mode (bipartite) networks,
-# but some functions work also for one-mode (unipartite) networks.
+# Warning 2: This script was designed for two-mode (bipartite) networks, but some functions work also for one-mode (unipartite) networks.
 
-# Warning 3: there is no single magic way to draw all kinds of network.
-# There are several network drawing methods implemented in R packages
-# and stand-alone software. Study their logic and algorithms,
-# see some papers in which they were used, think it through,
-# and only then decide which drawing method to use in your study.
+# Warning 3: There is no single magic way to draw all kinds of networks. There are several network drawing algorithms implemented in different R packages and stand-alone software. Study their logic and algorithms, see some papers in which they were used. Think it through, and only then decide which drawing method to use in your study. For guidelines on which drawing algorithm to choose, read the studies suggested in the end of this tutorial.
 
 
 #############################################################
@@ -76,23 +62,27 @@ print( getwd() )
 
 net1 <- read.table("net1.txt", head=TRUE)
 
-# Check the object
+# Check if the network loaded correctly
 
 net1
 
+# Check the dimensions of the network
+
+dim(net1)
+
 #Draw and export the image
 
-png(filename= "net1_bipartitegraph.png", 
+png(filename= "net1_bipartite_graph.png", 
     
     #Set image resolution in dpi
     res= 300, 
     
-    #Set image dimensions
+    #Set image dimensions in dots
     height= 2500, width= 3000)
 
 plotweb(net1, 
         
-        #Set the drawing method. 
+        #Set the drawing method. Experiment with other values.
         method="cca", 
         
         #Set the color of the row nodes
@@ -111,8 +101,7 @@ plotweb(net1,
         labsize=1)
 dev.off()
 
-# Tip: There are many other parameters that can be set to customize the drawing.
-# Explore them!
+# Tip: There are many other parameters that can be set to customize the drawing. Explore them!
 
 
 ##################
@@ -120,7 +109,7 @@ dev.off()
 
 # Drawing mode: bipartite matrix
 
-# Use the same object as before
+# Use the same network as before. Just take a look at it to remember what it looks like. 
 
 net1
 
@@ -143,8 +132,7 @@ visweb(net1,
        square="interaction")
 dev.off()
 
-# Tip: There are many other parameters that can be set to customize the drawing.
-# Explore them!
+# Tip: There are many other parameters that can be set to customize the drawing. Explore them!
 
 
 
@@ -157,22 +145,17 @@ dev.off()
 
 # Transform the previous bipartite object into an igraph object
 
-net2 = cbind.data.frame(reference=row.names(net1),net1)
-str(net2)
-netlist = melt(net2, na.rm = T)
-colnames(netlist) = c("rows", "columns", "weight")
-netlist[,1]=as.character(paste(netlist[,1]))
-netlist[,2]=as.character(paste(netlist[,2]))
-netlist2 <- subset(netlist, weight > 0)
-nodes <- unique(data.frame(nodes = c(netlist2[,1], netlist2[,2])))
-head(nodes)
-links = netlist2
-net3 <- graph_from_data_frame(d=links, vertices=nodes, directed=F) 
-class(net3)
+net2 <- graph_from_incidence_matrix(net1,
+                                    #Here you inform whether it's a binary or weighted network.
+                                    weighted = T) 
 
-#Check the main properties of the igraph object
-V(net3)
-E(net3)
+# Check the network's main information
+
+net2
+
+#Check the vertices and edges of the igraph object
+V(net2)
+E(net2)
 
 # Draw and export the image
 
@@ -184,7 +167,7 @@ png(filename= "net1_igraph.png",
     # Set image dimensions
     height= 2500, width= 3000)
 
-plot.igraph(net3,
+plot.igraph(net2,
             
             # Set the drawing mode.
             # This package contains several drawing methods; try them!
@@ -198,7 +181,7 @@ plot.igraph(net3,
             
             # Set link width proportional to link weights
             # You can transform the values, if they are too different or too large
-            edge.width = E(net3)$weight/100,
+            edge.width = E(net2)$weight/100,
             
             # Set node colors
             vertex.color = c("green", "yellow"),
@@ -211,8 +194,7 @@ plot.igraph(net3,
             )
 dev.off()
 
-# Tip: There are many other parameters that can be set to customize the drawing.
-# Explore them!
+# Tip: There are many other parameters that can be set to customize the drawing. Explore them!
 
 
 
@@ -223,24 +205,14 @@ dev.off()
 ####3. SUGGESTED READINGS####
 
 
-#Barabasi, A.L. (2016) Network Science, 1st ed. Cambridge 
- #University Press, Cambridge. Available at:
- #http://barabasi.com/networksciencebook/.
+# Ognyanova K. 2017. Static and dynamic network visualization with R. Available at: http://kateto.net/network-visualization.
 
-#Bascompte, J. & Jordano, P. (2014) Mutualistic Networks, 1st ed.
- #Princeton University Press, Princeton.
+# Pocock, M. J. O., D. M. Evans, C. Fontaine, M. Harvey, R. Julliard, Ó. McLaughlin, J. Silvertown, A. Tamaddoni-Nezhad, P. C. L. White, and D. A. Bohan. 2016. The Visualisation of Ecological Networks, and Their Use as a Tool for Engagement, Advocacy and Management. In G. Woodward and D. A. Bohan (Eds.) Advances in Ecological Research. pp. 41–85, Academic Press, Cambridge. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0065250415000355 [Accessed March 27, 2017].
 
-#Mello MAR, Muylaert RL, Pinheiro RBP & Félix GMF. 2016. 
- #Guia para análise de redes ecológicas. Edição dos autores, 
- #Belo Horizonte. 112 p. ISBN-13: 978-85-921757-0-2.
- #Available at: www.marcomello.org
+# Marai, G. E., B. Pinaud, K. Bühler, A. Lex, and J. H. Morris. 2019. Ten simple rules to create biological network figures for communication F. Lewitter (Ed.). PLOS Comput. Biol. 15: e1007244. Available at: https://doi.org/10.1371/journal.pcbi.1007244.
 
-#Ognyanova K. 2017. Static and dynamic network visualization with R.
- #Available at: http://kateto.net/network-visualization.
+# Mello MAR, Muylaert RL, Pinheiro RBP & Félix GMF. 2016. Guia para análise de redes ecológicas. Edição dos autores, Belo Horizonte. 112 p. ISBN-13: 978-85-921757-0-2. Available at: www.marcomello.org
 
-#Pocock, M. J. O., D. M. Evans, C. Fontaine, M. Harvey, R. Julliard,
- #Ó. McLaughlin, J. Silvertown, A. Tamaddoni-Nezhad, P. C. L. White,
- #and D. A. Bohan. 2016. The Visualisation of Ecological Networks, 
- #and Their Use as a Tool for Engagement, Advocacy and Management. Pages 41–85.
+# Barabasi, A.L. (2016) Network Science, 1st ed. Cambridge University Press, Cambridge. Available at: http://barabasi.com/networksciencebook/.
 
-
+# Bascompte, J. & Jordano, P. (2014) Mutualistic Networks, 1st ed. Princeton University Press, Princeton.
