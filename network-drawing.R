@@ -249,7 +249,14 @@ dev.off()
 
 # The best way to work with multilayer networks is by using vertex and edge
 # lists. However, in most cases, ecologists usually have incidence matrices
-# to begin the analysis. So let's assume this starting point.
+# to begin the analysis. 
+
+# If your data are organized as edge and vertex lists, go to step 6B. Otherwise,
+# proceed to step 6A.
+
+
+##### 6A: starting with incidence matrices
+
 
 # We are going to work with a multilayer network composed of two layers:
 # one with antagonistic interactions and the other with mutualistic 
@@ -332,8 +339,11 @@ net3_nodes = unique(net3_nodes)
 
 ##### ATTENTION: #####
 # If your data are already organized as vertex and edge lists, you can begin
-# right here, instead of having to do all previous operations.
+# right here, instead of having to go through all previous steps
 ######################
+
+
+##### 6B: starting with edge and vertex lists
 
 
 # Create a new multilayer network formatted for igraph
