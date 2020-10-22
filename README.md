@@ -1,6 +1,6 @@
 # network-drawing
 
-Script with different ways to draw monolayer and multilayer networks in R.
+Script with different solutions to draw monolayer and multilayer networks in R.
 
 [Ecological Synthesis Lab](https://marcomellolab.wordpress.com) (SintECO).
 
