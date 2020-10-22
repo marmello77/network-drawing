@@ -32,15 +32,15 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
     
 2. figures (folder)
 
-    a. net1_bipartite_graph.png -> monolayer network drawn as a bipartite graph.
+    a. net1_bipartite_graph.png -> monolayer network drawn as a bipartite graph, vertex colors by class.
 
     b. net1_bipartite_matrix.png -> monolayer network drawn as an incidence matrix.
     
-    c. net1_igraph_graph_multi.png -> multilayer network drawn as an energy-minimization graph, with node colors by taxonomic group.
+    c. net1_igraph_graph_multi.png -> multilayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
 
-    d. net1_igraph_graph_taxon.png -> monolayer network drawn as an energy-minimization graph, with node colors by taxonomic group.
+    d. net1_igraph_graph_taxon.png -> monolayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
 
-    e. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph.
+    e. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph, vertex colors by class.
     
     
 3. network-drawing.R -> script with commented codes.
