@@ -72,6 +72,8 @@ We thank our labmates and our sponsors, especially the Alexander von Humboldt-St
 
 ## Suggested readings
 
+If you want to understand the theory behind this script, read the following works:
+
 * Barabasi, A.L. (2016) [Network Science](http://barabasi.com/networksciencebook/), 1st ed. Cambridge University Press, Cambridge.
 
 * Bascompte, J. & Jordano, P. (2014) [Mutualistic Networks](https://amzn.to/2FLwhto), 1st ed. Princeton University Press, Princeton.
