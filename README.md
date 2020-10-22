@@ -43,11 +43,7 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
     e. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph.
     
     
-3. network-drawing.pdf -> tutorial in PDF format.
-
-4. network-drawing.R -> script with commented codes.
-
-5. network-drawing.Rmd -> tutorial in RMD format.
+3. network-drawing.R -> script with commented codes.
 
 
 ## Data sources
@@ -61,11 +57,7 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
 
 ## Instructions
 
-If you are familiar with R, just run the scripts provided in "network-drawing.R".
-
-If you are not so familiar with R, follow the steps described in the RMD tutorial.
-
-If you just to take a look at the networks and their drawing solutions, read the PDF tutorial.
+Follow the instructions provided in the script "network-drawing.R".
 
 
 ## Feedback
