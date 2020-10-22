@@ -25,9 +25,9 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
 
     b. net2.txt -> interactions of pollination between bats, hawkmoths, and plants (Queioz et al. 2020).
 
-    c. net3an.txt -> interactions of seed destruction (antagonism) between maruspials, rodents, and plants (Genrich et al. 2017).
+    c. net3an.txt -> interactions of seed destruction (antagonism) between marsupials, rodents, and plants (Genrich et al. 2017).
     
-    d. net3mu.txt -> interactions of seed dispersal (mutualism) between maruspials, rodents, and plants (Genrich et al. 2017).
+    d. net3mu.txt -> interactions of seed dispersal (mutualism) between marsupials, rodents, and plants (Genrich et al. 2017).
     
     
 2. figures (folder)
