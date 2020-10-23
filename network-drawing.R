@@ -19,7 +19,7 @@
 # 3. Monolayer bipartite graph in bipartite
 # 4. Monolayer energy-minimization graph in igraph
 # 5. Monolayer energy-minimization graph with multiple vertex types in igraph
-# 6. Multilayer energy-minimization graph in igraph
+# 6. Multilayer energy-minimization graph with multiple vertex types in igraph
 
 
 ################################################################################
