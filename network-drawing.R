@@ -133,7 +133,7 @@ dev.off()
 ################################################################################
 
 
-# Let's continue with net1_bi Do you remember how it looks?
+# Let's continue with net1_bi. Do you remember how it looks?
 net1_bi
 
 # Plot the network as a bipartite graph and export the output as a PNG image
@@ -162,13 +162,13 @@ dev.off()
 ################################################################################
 
 
-# We'll continue with net1
+# We'll continue using net1
 # But this time we'll use its igraph version: net1_ig
-# Take a look at it. Its heading is very informative, check it's meaning
-# in this package's help
+# Take a look at it. Its heading is very informative. Check the meaning of all
+# those codes in this package's help
 net1_ig
 
-# Plot the network as an energy--minimization graph and
+# Plot the network as an energy-minimization graph and
 # export the output as a PNG image
 png(filename= "figures/net1_igraph_graph.png", #name the file
     units = "px", #set the units to pixels
@@ -218,7 +218,7 @@ V(net2_ig)$color = gsub("Bats","gold",V(net2_ig)$color)
 V(net2_ig)$color = gsub("Moths","purple",V(net2_ig)$color)
 V(net2_ig)$color = gsub("Plants","darkgreen",V(net2_ig)$color)
 
-# Plot the network as an energy--minimization graph and
+# Plot the network as an energy-minimization graph and
 # export the output as a PNG image
 png(filename= "figures/net1_igraph_graph_taxon.png", #name the file
     units = "px", #set the units to pixels
@@ -318,7 +318,7 @@ E(net3_multi)$layer <- ifelse(E(net3_multi)$layer == "1",
 # Check the layers
 E(net3_multi)$layer
 
-# Add information on the bipartite structure by asggining vertex classes
+# Add information on the bipartite structure by assigning vertex classes
 V(net3_multi)$type = c(rep(0, nrow(net3an_bi)), 
                        rep(1, ncol(net3an_bi)))
 
@@ -326,7 +326,7 @@ V(net3_multi)$type = c(rep(0, nrow(net3an_bi)),
 net3_multi
 V(net3_multi)$type
 
-# As net2, this network does also contain 3 taxonomic groups. In this case,
+# Like net2, this network also contains 3 taxonomic groups. In this case,
 # marsupials, rodents, and plants. So let's recover this information now.
 # Create a new vertex attribute with the taxonomic groups
 V(net3_multi)$taxon = c(c("Rodents", "Rodents", "Marsupials", "Marsupials",
