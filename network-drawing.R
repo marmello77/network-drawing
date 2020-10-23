@@ -42,6 +42,7 @@ rm(list= ls())
 
 # Load the required packages
 library(bipartite)
+library(dplyr)
 library(igraph)
 library(reshape2)
 library(tidyverse)
@@ -251,19 +252,19 @@ dev.off()
 # lists. However, in most cases, ecologists usually have incidence matrices
 # to begin the analysis. 
 
-# If your data are organized as edge and vertex lists, go to step 6B. Otherwise,
-# proceed to step 6A.
+# If your data are organized as edge and vertex lists, you life will be much
+# easier. See another script focused on multilayer networks:
+# https://github.com/marmello77/multilayer-networks
 
+# Otherwise, proceed to the next step in this script. You'll need to transform
+# your matrices.
 
-##### 6A: starting with incidence matrices
-
-
-# We are going to work with a multilayer network composed of two layers:
+# OK, we are going to work with a multilayer network composed of two layers:
 # one with antagonistic interactions and the other with mutualistic 
 # interactions. These layers are represented by two matrices with equal
-# dimensions and exactly the same label order for the rows and columns.
+# dimensions and exactly the same label order for rows and columns.
 
-# Let's take a look at those matrices, which we've already imported. See that
+# Let's take a look at the matrices, which we've already imported. See that
 # they are like reflections in a mirror, but with different values in their
 # cells.
 
@@ -273,105 +274,71 @@ net3an_bi
 # Mutualistic matrix:
 net3mu_bi
 
-# Fortunately, we've already converted them into igraph format. Do you remember
-# their attributes?
-net3an_ig
-net3mu_ig
+#Transform these matrices into a combined edge list
+net3list <- bind_rows(
+    as.data.frame(as.table(net3an_bi)),
+    as.data.frame(as.table(net3mu_bi)),
+    .id = "layer") %>%
+    
+    filter(Freq != 0) %>%
+    select(
+        from = Var1,
+        to = Var2,
+        layer,
+        Freq)
 
-# First, let's create a new attributed with info on interaction types
-E(net3an_ig)$layer <- "antagonistic"
-E(net3mu_ig)$layer <- "mutualistic"
+#Check the data
+head(net3list)
+
+#Give the columns informative names
+colnames(net3list) <- c("animals", "plants", "layer", "weight")
+
+#Check the data
+head(net3list)
+
+#Transform the combined edge list into an igraph object
+net3_multi <- graph_from_data_frame(net3list, directed = FALSE)
+
+#Check the multilayer network
+net3_multi
+V(net3_multi)
+E(net3_multi)
+attributes(V(net3_multi))
+attributes(E(net3_multi))
+V(net3_multi)$type
+V(net3_multi)$name
+E(net3_multi)$layer
+E(net3_multi)$weight
+
+# Create a new edge attribute with info on interaction types (layers)
+E(net3_multi)$layer <- ifelse(E(net3_multi)$layer == "1",
+                              "antagonistic",
+                              "mutualistic")
 
 # Check the layers
-E(net3an_ig)$layer
-E(net3mu_ig)$layer
+E(net3_multi)$layer
 
-# Now let's inform which vertices are animals and plants
-V(net3an_ig)$taxon = ifelse(V(net3an_ig)$type == FALSE, "animals", "plants")
-V(net3mu_ig)$taxon = ifelse(V(net3mu_ig)$type == FALSE, "animals", "plants")
+# Add information on the bipartite structure by asggining vertex classes
+V(net3_multi)$type = c(rep(0, nrow(net3an_bi)), 
+                       rep(1, ncol(net3an_bi)))
 
-# Check the taxonomic groups
-V(net3an_ig)$taxon
-V(net3mu_ig)$taxon
-
-# Now let's export the edge lists (links)
-net3an_links <- as.data.frame(as_edgelist(net3an_ig, names = TRUE))
-net3mu_links <- as.data.frame(as_edgelist(net3mu_ig, names = TRUE))
-
-# Check the edge lists
-net3an_links
-net3mu_links
-
-# Add info on the layers
-net3an_links$layer <- "antagonistic"
-net3mu_links$layer <- "mutualistic"
-
-# Give the columns informative names
-colnames(net3an_links) <- c("animals", "plants", "layer")
-colnames(net3mu_links) <- c("animals", "plants", "layer")
-
-# Bring back the information on edge weights
-net3an_links$weight <- E(net3an_ig)$weight
-net3mu_links$weight <- E(net3mu_ig)$weight
-
-# Now create vertex lists
-net3an_nodes <- data.frame(node=character(length(V(net3an_ig)$name)), 
-                           taxon=character(length(V(net3an_ig)$taxon)), 
-                           stringsAsFactors=FALSE) 
-net3an_nodes$node <- V(net3an_ig)$name
-net3an_nodes$taxon <- V(net3an_ig)$taxon
-
-net3mu_nodes <- data.frame(node=character(length(V(net3mu_ig)$name)), 
-                           taxon=character(length(V(net3mu_ig)$taxon)), 
-                           stringsAsFactors=FALSE) 
-net3mu_nodes$node <- V(net3mu_ig)$name
-net3mu_nodes$taxon <- V(net3mu_ig)$taxon
-
-# Check the vertex lists
-net3an_nodes
-net3mu_nodes
-
-# Now let's merge the two layers
-net3_links = rbind(net3an_links, net3mu_links)
-net3_nodes = rbind(net3an_nodes, net3mu_nodes)
-net3_nodes = unique(net3_nodes)
-
-
-##### ATTENTION: #####
-# If your data are already organized as vertex and edge lists, you can begin
-# right here, instead of having to go through all previous steps
-######################
-
-
-##### 6B: starting with edge and vertex lists
-
-
-# Create a new multilayer network formatted for igraph
-net3_multi <- graph_from_data_frame(d=net3_links, vertices=net3_nodes, directed=F) 
-class(net3_multi)
+# Check the network's attributes and the vertex classes
 net3_multi
+V(net3_multi)$type
 
-# Add information on the bipartite structure
-V(net3_multi)$type <- ifelse(V(net3_multi)$taxon == "animals", "animals", "plants")
-
-# Check the network's attributes again to check if it's undirected, named, 
-# weighted, and bipartite. Check also its number of vertices and edges
-net3_multi
-
-# As net2, this network does also contain 3 taxonomic groups: marsupials, 
-# rodents, and plants. So let's recover this information now.
+# As net2, this network does also contain 3 taxonomic groups. In this case,
+# marsupials, rodents, and plants. So let's recover this information now.
 # Create a new vertex attribute with the taxonomic groups
-V(net3_multi)$taxon2 = c(c("Rodents", "Rodents", "Marsupials", "Marsupials",
-                        "Marsupials", "Rodents", "Rodents", "Marsupials",
-                        "Rodents"),
-                   rep("Plants", ncol(net3an_bi))
-                   )
+V(net3_multi)$taxon = c(c("Rodents", "Rodents", "Marsupials", "Marsupials",
+                           "Marsupials", "Rodents", "Rodents", "Marsupials",
+                           "Rodents"),
+                         rep("Plants", ncol(net3an_bi)))
 
 # Check the taxonomic groups
-V(net3_multi)$taxon2
+V(net3_multi)$taxon
 
 # Set vertex colors by taxonomic group
-V(net3_multi)$color = V(net3_multi)$taxon2
+V(net3_multi)$color = V(net3_multi)$taxon
 V(net3_multi)$color = gsub("Marsupials","gold",V(net3_multi)$color)
 V(net3_multi)$color = gsub("Rodents","purple",V(net3_multi)$color)
 V(net3_multi)$color = gsub("Plants","darkgreen",V(net3_multi)$color)
