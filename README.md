@@ -67,7 +67,7 @@ If you have any questions, corrections, or suggestions, please feel free to open
 
 ## Acknowledgments
 
-We thank our labmates and our sponsors, especially the Alexander von Humboldt-Stiftung, CNPq, CAPES, and FAPESP, who gave us grants, fellowships, and scholarships. Pedro Jordano and Carsten Dormann helped us take our first steps in analyzing and drawing networks in R. Special thanks go to Katherine Ognyanova, who gave us invaluable tips on advanced network drawing in R. We strongly recommend her [online tutorial](http://kateto.net/network-visualization). Last, but not least, we thank the [Stack Overflow Community](https://stackoverflow.com), where we solve most of our coding dilemmas. 
+We thank our labmates and our sponsors, especially the Alexander von Humboldt-Stiftung, CNPq, CAPES, and FAPESP, who gave us grants, fellowships, and scholarships. Pedro Jordano and Carsten Dormann helped us take our first steps in analyzing and drawing networks in R. Special thanks go to Katherine Ognyanova, who gave us invaluable tips on advanced network drawing in R. We strongly recommend her [online tutorial](http://kateto.net/network-visualization). Last, but not least, we thank the [Stack Overflow Community](https://stackoverflow.com), where we solve most of our coding dilemmas. A dilemma related to converting incidence matrices to make a multilayer network was solved [here](https://stackoverflow.com/questions/64486982/how-to-unite-two-graphs-in-r-to-form-a-multilayer-network).
 
 
 ## Suggested readings
