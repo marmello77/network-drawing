@@ -27,13 +27,6 @@
 ################################################################################
 
 
-# Warning: There is no single magic way to draw all kinds of networks. 
-# There are several network drawing algorithms implemented in different
-# R packages and stand-alone software. Study their logic and algorithms, 
-# see some papers in which they were used. Think it through, and only 
-# then decide which drawing method to use in your study. For guidelines
-# on which drawing algorithm to choose, see the suggested readings.
-
 # Set the working directory automatically to the source file location 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -46,6 +39,24 @@ library(dplyr)
 library(igraph)
 library(reshape2)
 library(tidyverse)
+
+
+# Warning: 
+
+# There is no single magic way to draw all kinds of networks. 
+# There are several network drawing algorithms implemented in different
+# R packages and stand-alone software. Study their logic and algorithms, 
+# see some papers in which they were used. Think it through, and only 
+# then decide which drawing method to use in your study. For guidelines
+# on which drawing algorithm to choose, see the suggested readings.
+
+# The elements of a network may be called nodes or vertices. Depending on the
+# software or package used, you'll see one term or the other.
+
+# The relationships between the elements of a network may be called links or
+# edges. Depending on the software or package used, you'll see one term or
+# the other.
+
 
 #Import the data in matrix format, ready to be used with bipartite
 net1_bi <- as.matrix(read.delim("data/net1.txt", row.names=1))
