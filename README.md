@@ -33,14 +33,22 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
 2. figures (folder)
 
     a. net1_bipartite_graph.png -> monolayer network drawn as a bipartite graph, vertex colors by class.
-
-    b. net1_bipartite_matrix.png -> monolayer network drawn as an incidence matrix.
     
-    c. net1_igraph_graph_multi.png -> multilayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
+    b. net1_bipartite_matrix_modules.png -> monolayer network drawn as an incidence matrix with the modules identified.
 
-    d. net1_igraph_graph_taxon.png -> monolayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
+    c. net1_bipartite_matrix.png -> monolayer network drawn as an incidence matrix.
+    
+    d. net1_igraph_graph_modules_bi.png -> monolayer network drawn as an energy-minimization graph, vertex colors by module. Modularity analyzed in the package bipartite.
+    
+    e. net1_igraph_graph_modules_ig.png -> monolayer network drawn as an energy-minimization graph, vertex colors by module. Modularity analyzed in the package igraph.
+    
+    f. net1_igraph_graph_multi.png -> multilayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
 
-    e. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph, vertex colors by class.
+    g. net1_igraph_graph_taxon.png -> monolayer network drawn as an energy-minimization graph, with multiple taxonomic groups, each identified by a different color.
+
+    h. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph, vertex colors by class.
+    
+    i. net2_igraph_graph_modules_ig.png -> monolayer network drawn as an energy-minimization graph, with multiple taxonomic groups, vertex colors by module, vertex shapes by taxon. Modularity analyzed in the package igraph. 
     
 
 3. MyTriangle.R -> additional function to create the diamond shape used to represent some vertex types. This is a modification of the "mytriangle" function provided in the [igraph manual](https://igraph.org/r/doc/shapes.html).    
