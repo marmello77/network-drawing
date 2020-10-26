@@ -42,8 +42,11 @@ Disclaimer: You may use this software freely for any purposes at your own risk. 
 
     e. net1_igraph_graph.png -> monolayer network drawn as an energy-minimization graph, vertex colors by class.
     
-    
-3. network-drawing.R -> script with commented codes.
+
+3. MyTriangle.R -> additional function to create the diamond shape used to represent some vertex types. This is a modification of the "mytriangle" function provided in the [igraph manual](https://igraph.org/r/doc/shapes.html).    
+
+
+4. network-drawing.R -> script with commented codes.
 
 
 ## Data sources
@@ -77,6 +80,10 @@ If you want to understand the theory behind this script, read the following work
 * Barabasi, A.L. (2016) [Network Science](http://barabasi.com/networksciencebook/), 1st ed. Cambridge University Press, Cambridge.
 
 * Bascompte, J. & Jordano, P. (2014) [Mutualistic Networks](https://amzn.to/2FLwhto), 1st ed. Princeton University Press, Princeton.
+
+* Beckett, S. J. (2016). [Improved community detection in weighted bipartite networks](https://doi.org/10.1098/rsos.140536). Royal Society Open Science, 3(1), 140536. doi: 10.1098/rsos.140536
+
+* Blondel, V. D., Guillaume, J.-L., Lambiotte, R., & Lefebvre, E. (2008). [Fast unfolding of communities in large networks](https://doi.org/10.1088/1742-5468/2008/10/P10008). Journal of Statistical Mechanics: Theory and Experiment, 2008(10), P10008.
 
 * Marai, G. E., B. Pinaud, K. Bühler, A. Lex, and J. H. Morris. (2019) [Ten simple rules to create biological network figures for communication](https://doi.org/10.1371/journal.pcbi.1007244). PLOS Comput. Biol. 15: e1007244.
 

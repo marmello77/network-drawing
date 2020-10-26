@@ -15,11 +15,15 @@
 
 
 # 1. Get ready
-# 2. Monolayer matrix in bipartite
-# 3. Monolayer bipartite graph in bipartite
-# 4. Monolayer energy-minimization graph in igraph
-# 5. Monolayer energy-minimization graph with multiple vertex types in igraph
-# 6. Multilayer energy-minimization graph with multiple vertex types in igraph
+# 2. Monolayer matrix
+# 3. Monolayer bipartite graph
+# 4. Monolayer energy-minimization graph
+# 5. Monolayer energy-minimization graph multiple vertex types
+# 6. Multilayer energy-minimization graph multiple vertex types
+# 7. Monolayer matrix with modules
+# 8. Monolayer energy-minimization graph with modules from igraph
+# 9. Monolayer energy-minimization graph with modules from bipartite
+# 10. Monolayer energy-minimization graph with modules +multiple vertex types
 
 
 ################################################################################
@@ -90,10 +94,14 @@ min(net3mu_bi)
 max(net3mu_bi)
 
 #Create versions of all networks formatted for igraph
-net1_ig <- graph_from_incidence_matrix(net1_bi, directed = F, weighted = TRUE)
-net2_ig <- graph_from_incidence_matrix(net2_bi, directed = F, weighted = TRUE) 
-net3an_ig <- graph_from_incidence_matrix(net3an_bi, directed = F, weighted = TRUE) 
-net3mu_ig <- graph_from_incidence_matrix(net3mu_bi, directed = F, weighted = TRUE) 
+net1_ig <- graph_from_incidence_matrix(net1_bi, 
+                                       directed = F, weighted = TRUE)
+net2_ig <- graph_from_incidence_matrix(net2_bi, 
+                                       directed = F, weighted = TRUE) 
+net3an_ig <- graph_from_incidence_matrix(net3an_bi, 
+                                         directed = F, weighted = TRUE) 
+net3mu_ig <- graph_from_incidence_matrix(net3mu_bi, 
+                                         directed = F, weighted = TRUE) 
 
 #Inspect the igraph networks
 class(net1_ig)
@@ -118,7 +126,7 @@ V(net3mu_ig)$name
 
 
 ################################################################################
-##### 2. Monolayer matrix in bipartite
+##### 2. Monolayer matrix
 ################################################################################
 
 # Let's start by drawing a matrix. Use net1_bi as an example. Take a look at it:
@@ -140,7 +148,7 @@ dev.off()
 
 
 ################################################################################
-##### 3. Monolayer bipartite graph in bipartite
+##### 3. Monolayer bipartite graph
 ################################################################################
 
 
@@ -169,7 +177,7 @@ dev.off()
 
 
 ################################################################################
-##### 4. Monolayer energy-minimization graph in igraph
+##### 4. Monolayer energy-minimization graph
 ################################################################################
 
 
@@ -203,7 +211,7 @@ dev.off()
 
 
 ################################################################################
-##### 5. Monolayer energy-minimization graph with multiple vertex types in igraph
+##### 5. Monolayer energy-minimization graph multiple vertex types
 ################################################################################
 
 
@@ -253,7 +261,7 @@ dev.off()
 
 
 ################################################################################
-##### 6. Multilayer energy-minimization graph in igraph
+##### 6. Multilayer energy-minimization graph
 ################################################################################
 
 
@@ -391,4 +399,273 @@ plot(net3_multi, #the network you want to plot
 dev.off()
 
 
-#################################### END #######################################
+################################################################################
+##### 7. Monolayer matrix with modules
+################################################################################
+
+
+# What if you wanted to represent the modular structure of a network? You can do
+# it in different ways. The first is by plotting it as a matrix.
+
+# Let's continue with net1_bi. Do you remember how it looks?
+net1_bi
+
+# First you need to analyze the network's modularity. This involves running a
+# modularity algorithm of your choice to calculate the degree of modularity Q 
+# and identify which vertices belong to which modules.
+
+#Calculate modularity
+net1_bi.mod <- computeModules(net1_bi,
+                              method = "Beckett") #DIRTLPAwb+ algorithm
+
+#Check the modularity information
+net1_bi.mod
+
+# Check module membership
+listModuleInformation(net1_bi.mod)
+
+# Plot the network as a matrix and export the output as a PNG image
+png(filename= "figures/net1_bipartite_matrix_modules.png", #name the file
+    units = "px", #set the units to pixels
+    res= 300, #set the resolution in dpi (most journals require at least 300)
+    height= 3000, width= 3000) #set the dimensions in the chosen unit
+
+plotModuleWeb(net1_bi.mod,
+              weighted = T,
+              labsize = 1,
+              displayAlabels = T,
+              displayBlabels = T,
+              xlabel = "Bees",
+              ylabel = "Flowers",
+              square.border	= "white")
+
+# You can set many other arguments. Check this function's help
+
+dev.off()
+
+
+################################################################################
+##### 8. Monolayer energy-minimization graph with modules from igraph
+################################################################################
+
+
+# We'll use net1 formatted for igraph
+net1_ig
+
+# First you need to analyze the network's modularity. This involves running a
+# modularity algorithm of your choice to calculate the degree of modularity Q 
+# and identify which vertices belong to which modules.
+
+# You can run a modularity analysis in different R packages. There are several
+# algorithms implemented in igraph. And there are algorithms implemented in
+# bipartite, which are custom-made for weighted, bipartite networks, such as
+# net1, our focus here.
+
+# Here we'll use a very popular algorithm, which can be calculate for different
+# kinds of networks, both unipartite or bipartite, binary or weighted: the
+# Louvain algorithm (Blondel 2008, JStatMech). This algorithm is very fast
+# and stable, so it's the primary choice for very large networks.
+
+# Calculate modularity in igraph
+net1_ig.mod_ig <- cluster_louvain(net1_ig) #Louvain algorithm
+
+# Check the modularity information
+net1_ig.mod_ig
+
+# Check module membership
+net1_ig.mod_ig$membership
+
+# We'll plot the network's modules calculated with igraph.
+# That's pretty straightforward, as you'll see. You can use the output produced
+# before as a plotting input. This way, you can plot the modules with different
+# node colors and also draw some clouds around them.
+
+# Plot the network as an energy-minimization graph and
+# export the output as a PNG image
+png(filename= "figures/net1_igraph_graph_modules_ig.png", #name the file
+    units = "px", #set the units to pixels
+    res= 300, #set the resolution in dpi (most journals require at least 300)
+    height= 3000, width= 3000) #set the dimensions in the chosen unit
+
+plot(net1_ig.mod_ig, #use the modularity output as the first input
+     net1_ig, #the network you want to plot
+     layout = layout_nicely, #choose a drawing layout for the graph
+     vertex.shape = "circle", #choose a vertex shape
+     vertex.size = 12, #set vertex size
+     vertex.frame.color = NA, #set vertex border color
+     vertex.label.cex = 0.7, #set vertex label size
+     vertex.label.color = "white", #set vertex label color
+     edge.width = E(net1_ig)$weight/100, #set edge width and adjust it
+     edge.curved = 0.3) #set edge curvature
+
+# In this plot, black edges represent within-module connections, while red edges
+# represent between-module connections.
+
+# You can set many other arguments. Check this function's help
+
+dev.off()
+
+
+################################################################################
+##### 9. Monolayer energy-minimization graph with modules from bipartite
+################################################################################
+
+
+# We'll continue using net1
+# We need both its bipartite and igraph versions. Take another look at them
+# to remember their structure
+net1_bi
+net1_ig
+
+# First you need to analyze the network's modularity. This involves running a
+# modularity algorithm of your choice to calculate the degree of modularity Q 
+# and identify which vertices belong to which modules.
+
+# You can run a modularity analysis in different R packages. There are several
+# algorithms implemented in igraph. And there are algorithms implemented in
+# bipartite, which are custom-made for weighted, bipartite networks, such as
+# net1, our focus here.
+
+# Here we'll use a relatively new algorithm  made for weighted, bipartite
+# networks: DIRTLPAwb+ (Beckett 2016, RoyalScoOpSci). This is currently the
+# best choice for working with this kind of network, the most common among
+# studies on ecological interactions.
+
+#Calculate modularity in bipartite
+net1_bi.mod_bi <- computeModules(net1_bi,
+                                 method = "Beckett") #DIRTLPAwb+ algorithm
+
+# Check the modularity information
+net1_bi.mod_bi
+
+# Check module membership
+listModuleInformation(net1_bi.mod_bi)
+
+# How much do the Q-scores differ between Louvain and DIRTLPAwb+? Are there
+# differences in the outputs produced by these two algorithms? Let's take a
+# look for the sake of curiosity.
+net1_bi.mod_ig$modularity
+net1_bi.mod_bi@likelihood
+
+# Let's get back to the point.
+# Plotting the output of a modularity analysis produced in bipartite together
+# with an igraph object is not so straightforward. The plotting function of
+# igraph accepts only lists to represent module clouds, not vectors of data
+# frames. Therefore, we need to do some data transformation first. 
+
+# Save module membership as a data frame
+net1_bi.modules.bi <- module2constraints(net1_bi.mod_bi)
+net1_bi.modules.bi
+net1_bi.df.bi <- data.frame(c(rownames(net1_bi), colnames(net1_bi)),
+                            net1_bi.modules.bi) 
+net1_bi.df.bi
+colnames(net1_bi.df.bi) <- c("vertices", "modules")
+net1_bi.df.bi
+
+# Save module membership as a list to be inputted in igraph
+net1_bi.list.bi <- split(net1_bi.df.bi$vertices, net1_bi.df.bi$modules)
+net1_bi.list.bi
+
+##Set node and cloud colors by modularity
+net1_ig.colors <- rainbow(length(net1_bi.list.bi), alpha = 1.0, s = 1, v = 0.8)
+V(net1_ig)$color <- net1_ig.colors[net1_bi.df.bi$modules]
+net1_ig.clouds = net1_ig.colors
+
+# Plot the network as an energy-minimization graph and
+# export the output as a PNG image
+png(filename= "figures/net1_igraph_graph_modules_bi.png", #name the file
+    units = "px", #set the units to pixels
+    res= 300, #set the resolution in dpi (most journals require at least 300)
+    height= 3000, width= 3000) #set the dimensions in the chosen unit
+
+plot(net1_ig, #the network you want to plot
+     layout=layout_nicely, #choose a drawing layout for the graph
+     col = V(net1_ig)$color, #set node color
+     mark.groups = net1_bi.list.bi, #set cloud color
+     mark.border = net1_ig.clouds, #set cloud border color as null
+     mark.col = adjustcolor(net1_ig.clouds, alpha = 0.2), #set cloud color
+     vertex.shape = "circle", #choose a vertex shape
+     vertex.size = 12, #set vertex size
+     vertex.frame.color = NA, #set vertex border color
+     vertex.label.cex = 0.7, #set vertex label size
+     vertex.label.color = "white", #set vertex label color
+     edge.width = E(net1_ig)$weight/100, #set edge width and adjust it
+     edge.curved=0.3) #set edge curvature
+# You can set many other arguments. Check this function's help
+
+dev.off()
+
+
+################################################################################
+##### 10. Monolayer energy-minimization graph with modules +multiple vertex types
+################################################################################
+
+
+# We'll use net2 formatted for igraph
+net2_ig
+
+# Calculate modularity in igraph
+net2_ig.mod_ig <- cluster_louvain(net2_ig) #Louvain algorithm
+
+# Check the modularity information
+net2_ig.mod_ig
+
+# Check module membership
+net2_ig.mod_ig$membership
+
+##Set node and cloud colors by modularity
+net2_ig.colors <- rainbow(length(unique(net2_ig.mod_ig$membership)),
+                          alpha = 1.0, s = 1, v = 0.8)
+V(net2_ig)$color <- net2_ig.colors[net2_ig.mod_ig$membership]
+net2_ig.clouds = net2_ig.colors
+
+#Create a new vertex attribute with the taxonomic groups
+V(net2_ig)$set = c(rep("Bats", 4),
+                   rep("Moths", nrow(net2_bi)-4),
+                   rep("Plants", ncol(net2_bi))
+                   )
+
+# As colors will represent modules, we'll use shape to represent vertex types.
+# The default shapes are not so nice, so let's add a customized shape by using
+# a drawing function. This is a modification of the "mytriangle" function
+# provided in the igraph manual.
+
+#Import the "diamond" vertex shape
+source("MyDiamond.R")
+
+#Set vertex shapes
+V(net2_ig)$shape <- V(net2_ig)$set
+V(net2_ig)$shape <- gsub("Bats","diamond",V(net2_ig)$shape)
+V(net2_ig)$shape <- gsub("Moths","square",V(net2_ig)$shape)
+V(net2_ig)$shape <- gsub("Plants","circle",V(net2_ig)$shape)
+
+# We'll plot the network's modules calculated with igraph.
+# That's pretty straightforward, as you'll see. You can use the output produced
+# before as a plotting input. This way, you can plot the modules with different
+# node colors and also draw some clouds around them.
+
+# Plot the network as an energy-minimization graph and
+# export the output as a PNG image
+png(filename= "figures/net2_igraph_graph_modules_ig.png", #name the file
+    units = "px", #set the units to pixels
+    res= 300, #set the resolution in dpi (most journals require at least 300)
+    height= 3000, width= 3000) #set the dimensions in the chosen unit
+
+plot(net2_ig.mod_ig, #use the modularity output as the first input
+     net2_ig, #the network you want to plot
+     layout=layout_nicely, #choose a drawing layout for the graph
+     col = V(net2_ig)$color, #set node color
+     vertex.shape = V(net2_ig)$shape, #choose a vertex shape
+     vertex.size = 9, #set vertex size
+     vertex.label.cex = 0.5, #set vertex label size
+     vertex.label.color = "white", #set vertex label color
+     vertex.frame.color = NA, #set vertex border color
+     edge.width = E(net2_ig)$weight/2, #set edge width and adjust it
+     edge.curved=0.3) #set edge curvature
+
+# In this plot, black edges represent within-module connections, while red edges
+# represent between-module connections.
+
+# You can set many other arguments. Check this function's help
+
+dev.off()
