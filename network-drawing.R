@@ -187,6 +187,9 @@ dev.off()
 # those codes in this package's help
 net1_ig
 
+# Create a layout to be used with net1 in all sections of this script
+laynet1 <- layout_nicely(net1_ig)
+
 # Plot the network as an energy-minimization graph and
 # export the output as a PNG image
 png(filename= "figures/net1_igraph_graph.png", #name the file
@@ -195,7 +198,7 @@ png(filename= "figures/net1_igraph_graph.png", #name the file
     height= 3000, width= 3000) #set the dimensions in the chosen unit
 
 plot(net1_ig, #the network you want to plot
-     layout=layout_nicely, #choose a drawing layout for the graph
+     layout = laynet1, #use the plotting layout you've just created
      vertex.shape = "circle", #choose a vertex shape
      vertex.size = 12, #set vertex size
      vertex.color = c("darkgreen", "gold"), #set vertex colors
@@ -475,6 +478,9 @@ net1_ig.mod_ig
 # Check module membership
 net1_ig.mod_ig$membership
 
+# Create a layout to be used with this graph and the next
+laynet1 <- layout_nicely(net1_ig)
+
 # We'll plot the network's modules calculated with igraph.
 # That's pretty straightforward, as you'll see. You can use the output produced
 # before as a plotting input. This way, you can plot the modules with different
@@ -489,7 +495,7 @@ png(filename= "figures/net1_igraph_graph_modules_ig.png", #name the file
 
 plot(net1_ig.mod_ig, #use the modularity output as the first input
      net1_ig, #the network you want to plot
-     layout = layout_nicely, #choose a drawing layout for the graph
+     layout = laynet1, #use the layout created before or choose another one
      vertex.shape = "circle", #choose a vertex shape
      vertex.size = 12, #set vertex size
      vertex.frame.color = NA, #set vertex border color
@@ -579,7 +585,7 @@ png(filename= "figures/net1_igraph_graph_modules_bi.png", #name the file
     height= 3000, width= 3000) #set the dimensions in the chosen unit
 
 plot(net1_ig, #the network you want to plot
-     layout=layout_nicely, #choose a drawing layout for the graph
+     layout = laynet1, #use the layout created before or choose another one
      col = V(net1_ig)$color, #set node color
      mark.groups = net1_bi.list.bi, #set cloud color
      mark.border = net1_ig.clouds, #set cloud border color as null
